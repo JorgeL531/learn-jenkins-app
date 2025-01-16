@@ -42,7 +42,7 @@ pipeline {
             junit 'test-results/junit.xml'
         }
     }
-    stages {
+
          stage('Deploy') {
             agent{
                 docker{
@@ -57,4 +57,3 @@ pipeline {
             }
         }
     }
-}
