@@ -1,6 +1,9 @@
 pipeline {
     agent any
 
+enviroment {
+    NETLIFY_SITE_ID = '43c3c122-1638-440f-b38c-faabee283046'
+}
     stages {
         stage('Build') {
             agent{
