@@ -46,7 +46,7 @@ pipeline {
             }
             steps {
                 sh '''
-                npm install netlify-cli -g
+                npm install netlify-cli
                 netlify --version
                 '''
             }
@@ -56,4 +56,5 @@ pipeline {
             junit 'test-results/junit.xml'
         }
     }
+  }
 }
