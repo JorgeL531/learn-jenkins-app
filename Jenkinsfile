@@ -26,8 +26,6 @@ enviroment {
         }
 
         stage('Test') {
-            parallel {
-            stage('Unit test')
             agent{
                 docker {
                     image'node:18-alpine'
@@ -63,4 +61,3 @@ enviroment {
         }
         }
     }
-}
