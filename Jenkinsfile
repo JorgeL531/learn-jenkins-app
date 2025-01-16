@@ -5,6 +5,7 @@ enviroment {
     NETLIFY_SITE_ID = '43c3c122-1638-440f-b38c-faabee283046'
 }
     stages {
+        
         stage('Build') {
             agent{
                 docker{
@@ -25,6 +26,8 @@ enviroment {
         }
 
         stage('Test') {
+            parallel {
+            stage('Unit test')
             agent{
                 docker {
                     image'node:18-alpine'
@@ -37,11 +40,27 @@ enviroment {
                 npm test
                 '''
             }
-        }
-    }
-}
     post{
         always{
             junit 'test-results/junit.xml'
         }
     }
+        }
+                stage('Deploy') {
+            agent{
+                docker{
+                    image'node:18-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                npm install netlify-cli
+                netlify --version
+                echo "Deploying to production. Site ID: $NETLIFY_SITE_ID"
+                '''
+            }
+        }
+    }
+}
+
